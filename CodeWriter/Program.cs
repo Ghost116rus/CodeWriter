@@ -14,6 +14,11 @@
         
         private static void ReadFilesInDirectory(StreamWriter writer,  string path)
         {
+            foreach (var dir in Directory.GetDirectories(path))
+            {
+                ReadFilesInDirectory(writer, dir);
+            }
+
             foreach (var file in Directory.GetFiles(path, _filePattern))
             {
                 var fileName = file.Split('\\').Last();
@@ -51,7 +56,6 @@
                     {
                         ReadFilesInDirectory(writer, dir);
                     }
-                    ReadFilesInDirectory(writer, dirPath);
                 }
             } 
             catch 
